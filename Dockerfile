@@ -1,4 +1,4 @@
-FROM fabric8/java-jboss-openjdk8-jdk:1.2.3  
+FROM maven:3-jdk-8
 MAINTAINER ochaloup@redhat.com
 
 LABEL io.k8s.description="Custom Java8 S2I based on fabric8/java-jboss-openjdk8-jdk:1.2.3" \
@@ -10,6 +10,7 @@ LABEL io.k8s.description="Custom Java8 S2I based on fabric8/java-jboss-openjdk8-
 
 RUN adduser --system -u 10001 jboss
 
+RUN ls /opt
 RUN mkdir -p /opt/app  && chown -R jboss: /opt/app
 
 COPY ./S2iScripts/ /usr/local/s2i
