@@ -1,18 +1,16 @@
-FROM centos:latest
-MAINTAINER noconnor@redhat.com
+FROM fabric8/java-jboss-openjdk8-jdk:1.2.3  
+MAINTAINER ochaloup@redhat.com
 
-RUN yum install -y java wget mvn --setopt=tsflags=nodocs && yum -y clean all
-
-LABEL io.k8s.description="Platform for building and running Java8 applications" \
+LABEL io.k8s.description="Custom Java8 S2I based on fabric8/java-jboss-openjdk8-jdk:1.2.3" \
       io.k8s.display-name="Java8" \
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,java8" \
       io.openshift.s2i.destination="/opt/app" \
       io.openshift.s2i.scripts-url=image:///usr/local/s2i
 
-RUN adduser --system -u 10001 javauser
+RUN adduser --system -u 10001 jboss
 
-RUN mkdir -p /opt/app  && chown -R javauser: /opt/app
+RUN mkdir -p /opt/app  && chown -R jboss: /opt/app
 
 COPY ./S2iScripts/ /usr/local/s2i
 
